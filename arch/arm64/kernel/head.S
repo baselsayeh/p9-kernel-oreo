@@ -40,6 +40,7 @@
 #include <asm/sysreg.h>
 #include <asm/thread_info.h>
 #include <asm/virt.h>
+#include <asm/coderunstartup.h>
 
 #define __PHYS_OFFSET	(KERNEL_START - TEXT_OFFSET)
 
@@ -211,6 +212,14 @@ efi_header_end:
 	__INIT
 
 ENTRY_NOTAG(stext)
+#ifdef CONFIG_CODERUNSTARTUP
+	/* Check coderun page */
+	ldr	x21, =CODERUNSTARTUP_ADDR
+	ldr	x22, [x21]
+	ldr	x23, =CODERUNSTARTUP_MAGIC
+	cmp	x22, x23
+	beq	setup_coderunstartup
+#endif
 	bl	preserve_boot_args
 	bl	el2_setup			// Drop to EL1, w20=cpu_boot_mode
 	adrp	x24, __PHYS_OFFSET
@@ -227,6 +236,14 @@ ENTRY_NOTAG(stext)
 	adr_l	x27, __primary_switch		// address to jump to after
 						// MMU has been enabled
 	b	__enable_mmu
+
+setup_coderunstartup:
+	/* x21 has address of coderunstartup page */
+	/* Clear coderunstartup page magic to avoid boot loop. */
+	str	xzr, [x21]
+	add	x21, x21, #0x200
+	//jump to the code
+	br	x21
 ENDPROC(stext)
 
 /*

@@ -891,6 +891,15 @@ config RANDOMIZE_MODULE_REGION_FULL
 	  a limited range that contains the [_stext, _etext] interval of the
 	  core kernel, so branch relocations are always in range.
 
+config CODERUNSTARTUP
+	bool "code run on startup support"
+	default n
+	help
+	  coderunstartup is a feature that implements the ability to run code
+	  on startup before the kernel starts.
+	  run code after 512 bytes from the CODERUNSTARTUP_ADDR.
+	  This can be used to execute an another kernel.
+
 endmenu
 
 menu "Boot options"
