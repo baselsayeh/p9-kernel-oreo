@@ -38,6 +38,11 @@ CPUNUM=$(grep -c ^processor /proc/cpuinfo)
 
 cd $CURR
 
+#
+CROSS_COMPILE_DIR=$(dirname $CROSS_COMPILE)
+export PATH=$CROSS_COMPILE_DIR:$PATH
+#
+
 [[ -d out ]] || mkdir out
 
 case $op in
