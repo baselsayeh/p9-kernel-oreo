@@ -41,6 +41,17 @@ cd $CURR
 #
 CROSS_COMPILE_DIR=$(dirname $CROSS_COMPILE)
 export PATH=$CROSS_COMPILE_DIR:$PATH
+
+if [ ! -f python_fix/python ]; then
+	echo "python_fix dir not found!"
+	rm -Rf python_fix
+	mkdir python_fix
+
+	ln -s "/usr/bin/python2" "python_fix/python"
+fi
+
+PythonFixPath="$(pwd)/python_fix"
+export PATH=$PythonFixPath:$PATH
 #
 
 [[ -d out ]] || mkdir out
