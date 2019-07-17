@@ -35,6 +35,14 @@ static int __init get_fastcharge_opt(char *ffc)
 		force_fast_charge = 0;
 	} else if (strcmp(ffc, "1") == 0) {
 		force_fast_charge = 1;
+	} else if (strcmp(ffc, "2") == 0) {
+		force_fast_charge = 2;
+	} else if (strcmp(ffc, "3") == 0) {
+		force_fast_charge = 3;
+	} else if (strcmp(ffc, "4") == 0) {
+		force_fast_charge = 4;
+	} else if (strcmp(ffc, "5") == 0) {
+		force_fast_charge = 5;
 	} else {
 		force_fast_charge = 0;
 	}
@@ -53,7 +61,7 @@ static ssize_t force_fast_charge_show(struct kobject *kobj, struct kobj_attribut
 static ssize_t force_fast_charge_store(struct kobject *kobj, struct kobj_attribute *attr, const char *buf, size_t count)
 {
 	sscanf(buf, "%d ", &force_fast_charge);
-	if (force_fast_charge < 0 || force_fast_charge > 1)
+	if (force_fast_charge < 0 || force_fast_charge > 5)
 		force_fast_charge = 0;
 
 	return count;
