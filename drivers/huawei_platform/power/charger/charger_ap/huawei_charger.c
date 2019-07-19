@@ -1607,14 +1607,11 @@ static void charge_select_charging_current(struct charge_device_info *di)
 				di->input_current = CHARGE_CURRENT_0500_MA;
 				di->charge_current = CHARGE_CURRENT_0500_MA;
 			} else if (force_fast_charge == 3) {
-				di->input_current = CHARGE_CURRENT_1900_MA;
-				di->charge_current = CHARGE_CURRENT_1900_MA;
+				di->input_current = CHARGE_CURRENT_1000_MA;
+				di->charge_current = CHARGE_CURRENT_1000_MA;
 			} else if (force_fast_charge == 4) {
-				di->input_current = CHARGE_CURRENT_2000_MA;
-				di->charge_current = CHARGE_CURRENT_2000_MA;
-			} else if (force_fast_charge == 5) {
-				di->input_current = CHARGE_CURRENT_MAX_MA;
-				di->charge_current = CHARGE_CURRENT_MAX_MA;
+				di->input_current = CHARGE_CURRENT_1200_MA;
+				di->charge_current = CHARGE_CURRENT_1200_MA;
 			}
 		}
 #endif
